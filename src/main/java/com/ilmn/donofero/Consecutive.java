@@ -9,7 +9,8 @@ import java.util.List;
 
 public class Consecutive {
 
-    private static final String DELIMITER = ",";
+    private static final String INPUT_DELIMITER = ",";
+    private static final String OUTPUT_DELIMITER = ", ";
 
     /**
      * Method to determine number of missing integers within provided list needed to make a consecutive list of ints.
@@ -34,7 +35,7 @@ public class Consecutive {
             return 0;
         }
         String sanitizedList = commaSeparatedListOfInts.replaceAll("\\s+", "");
-        List<String> separatedInts = Arrays.asList(sanitizedList.split(DELIMITER));
+        List<String> separatedInts = Arrays.asList(sanitizedList.split(INPUT_DELIMITER));
         List<Integer> convertedList = new ArrayList<Integer>();
         for (String separatedInt : separatedInts) {
             int converted;
@@ -59,7 +60,57 @@ public class Consecutive {
         return missingInts;
     }
 
+    /**
+     * Providied a comma delimited list of ints, add any missing integers to the list in order to make it consecutive.
+     * <p>
+     * Ex.
+     * - Input: `"5, 10, 15"`
+     * - Output: `"5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15"`
+     *
+     * @param commaSeparatedListOfInts comma delimited list of ints
+     * @return new comma delimited list with all consecutive ints
+     */
     public static String printConsecutiveList(String commaSeparatedListOfInts) {
-        return "5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15";
+        /*
+        Convert string into separated list
+        convert list into ints
+        sort
+        create new list of consecutive ints
+        compile it a string and return it
+         */
+        String sanitizedList = commaSeparatedListOfInts.replaceAll("\\s+", "");
+        List<String> separatedInts = Arrays.asList(sanitizedList.split(INPUT_DELIMITER));
+        List<Integer> convertedList = new ArrayList<Integer>();
+        for (String separatedInt : separatedInts) {
+            int converted;
+            try {
+                converted = Integer.parseInt(separatedInt);
+            } catch (NumberFormatException ex) {
+                System.out.println(String.format("RECEIVED STRING THAT COULD NOT BE CONVERTED TO INT: %s", separatedInt));
+                throw ex;
+            }
+            if (!convertedList.contains(converted)) {
+                convertedList.add(converted);
+            }
+
+        }
+        Collections.sort(convertedList);
+        StringBuilder finalString = new StringBuilder();
+        int lastAdded = convertedList.get(0);
+        for (int i = 0; i < convertedList.size(); i++) {
+            int current = convertedList.get(i);
+            if (current > lastAdded + 1) {
+                // Add in all missing int
+                for (int k = lastAdded + 1; k < current - 1; k++) {
+                    finalString.append(k);
+                    finalString.append(OUTPUT_DELIMITER);
+                }
+            }
+            finalString.append(current);
+            if (i != convertedList.size() - 1) {
+                finalString.append(OUTPUT_DELIMITER);
+            }
+        }
+        return finalString.toString();
     }
 }
