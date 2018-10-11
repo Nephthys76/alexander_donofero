@@ -1,9 +1,9 @@
 package com.ilmn.donofero;
 
-import static org.hamcrest.core.Is.is;
-import static org.hamcrest.text.IsEmptyString.emptyString;
-import static org.junit.Assert.*;
 import org.junit.Test;
+
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
 
 public class ConsecutiveTest {
 
@@ -23,73 +23,74 @@ public class ConsecutiveTest {
         assertThat(missingItemCount, is(11));
     }
 
-//    @Test
-//    public void test_count_already_consecutive() throws Exception {
-//        String inputStr = "2, 3, 4, 5, 6";
-//        int missingItemCount = Consecutive.countMissingInts(inputStr);
-//        assertThat(missingItemCount, is(0));
-//    }
-//
-//    @Test
-//    public void test_count_empty_string() throws Exception {
-//        String inputStr = "";
-//        int missingItemCount = Consecutive.countMissingInts(inputStr);
-//        assertThat(missingItemCount, is(0));
-//    }
-//
-//    @Test
-//    public void test_count_out_of_order_input() throws Exception {
-//        String inputStr = "4, 2, 8, 5, 12";
-//        int missingItemCount = Consecutive.countMissingInts(inputStr);
-//        assertThat(missingItemCount, is(6));
-//    }
-//
-//    @Test
-//    public void test_count_with_negative_numbers() throws Exception {
-//        String inputStr = "2, -4, 13, 8, 9";
-//        int missingItemCount = Consecutive.countMissingInts(inputStr);
-//        assertThat(missingItemCount, is(13));
-//    }
-//
-//    @Test
-//    public void test_count_with_positive_sign_prepending_numbers() throws Exception {
-//        String inputStr = "+2, -4, +13, +8, +9";
-//        int missingItemCount = Consecutive.countMissingInts(inputStr);
-//        assertThat(missingItemCount, is(13));
-//    }
-//
-//    @Test
-//    public void test_count_with_duplicates() throws Exception {
-//        String inputStr = "2, 5, 7, 5, 9, 2";
-//        int missingItemCount = Consecutive.countMissingInts(inputStr);
-//        assertThat(missingItemCount, is(4));
-//    }
-//
-//    @Test
-//    public void test_count_without_spaces() throws Exception {
-//        String inputStr = "4,2,8,5,12";
-//        int missingItemCount = Consecutive.countMissingInts(inputStr);
-//        assertThat(missingItemCount, is(6));
-//    }
-//
-//    @Test(expected = IllegalArgumentException.class)
-//    public void test_count_null_input_throws_exception() throws Exception {
-//        Consecutive.countMissingInts(null);
-//    }
-//
-//    @Test(expected = IllegalArgumentException.class)
-//    public void test_count_oversized_number_throws_exception() throws Exception {
-//        long tooBigToBeInt = Integer.MAX_VALUE;
-//        tooBigToBeInt++;
-//        String inputStr = "2, 4, 6, 16, " + tooBigToBeInt;
-//        Consecutive.countMissingInts(inputStr);
-//    }
-//
-//    @Test(expected = IllegalArgumentException.class)
-//    public void non_integer_input_for_count_throws_exception() throws Exception {
-//        String inputStr = "2, dog, 6, 3.14159";
-//        Consecutive.countMissingInts(inputStr);
-//    }
+    @Test
+    public void test_count_already_consecutive() throws Exception {
+        String inputStr = "2, 3, 4, 5, 6";
+        int missingItemCount = Consecutive.countMissingInts(inputStr);
+        assertThat(missingItemCount, is(0));
+    }
+
+    @Test
+    public void test_count_empty_string() throws Exception {
+        String inputStr = "";
+        int missingItemCount = Consecutive.countMissingInts(inputStr);
+        assertThat(missingItemCount, is(0));
+    }
+
+    @Test
+    public void test_count_out_of_order_input() throws Exception {
+        String inputStr = "4, 2, 8, 5, 12";
+        int missingItemCount = Consecutive.countMissingInts(inputStr);
+        assertThat(missingItemCount, is(6));
+    }
+
+    @Test
+    public void test_count_with_negative_numbers() throws Exception {
+        String inputStr = "2, -4, 13, 8, 9";
+        int missingItemCount = Consecutive.countMissingInts(inputStr);
+        assertThat(missingItemCount, is(13));
+    }
+
+    @Test
+    public void test_count_with_positive_sign_prepending_numbers() throws Exception {
+        String inputStr = "+2, -4, +13, +8, +9";
+        int missingItemCount = Consecutive.countMissingInts(inputStr);
+        assertThat(missingItemCount, is(13));
+    }
+
+    @Test
+    public void test_count_with_duplicates() throws Exception {
+        String inputStr = "2, 5, 7, 5, 9, 2";
+        // 3, 4, 6, 8 are missing
+        int missingItemCount = Consecutive.countMissingInts(inputStr);
+        assertThat(missingItemCount, is(4));
+    }
+
+    @Test
+    public void test_count_without_spaces() throws Exception {
+        String inputStr = "4,2,8,5,12";
+        int missingItemCount = Consecutive.countMissingInts(inputStr);
+        assertThat(missingItemCount, is(6));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void test_count_null_input_throws_exception() throws Exception {
+        Consecutive.countMissingInts(null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void test_count_oversized_number_throws_exception() throws Exception {
+        long tooBigToBeInt = Integer.MAX_VALUE;
+        tooBigToBeInt++;
+        String inputStr = "2, 4, 6, 16, " + tooBigToBeInt;
+        Consecutive.countMissingInts(inputStr);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void non_integer_input_for_count_throws_exception() throws Exception {
+        String inputStr = "2, dog, 6, 3.14159";
+        Consecutive.countMissingInts(inputStr);
+    }
 
 
 
